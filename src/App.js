@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { ApolloProvider } from '@apollo/client/react'
+
+import Tweets from './Tweets'
+import AddTweet from './components/AddTweet'
+
+const client = new ApolloClient({
+  uri: "https://twitter-graphql-backend.herokuapp.com/graphql",
+  cache: new InMemoryCache()
+})
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <div className="App">
+        <Tweets />
+        <AddTweet />
+      </div>
+    </ApolloProvider>
   );
 }
 
